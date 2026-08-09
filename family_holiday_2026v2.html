@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Holiday 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --cream: #F7F4EE;
+    --ink: #1C1C1A;
+    --muted: #6B6860;
+    --border: #E2DDD4;
+    --night: #2D2A5E;
+    --city: #2D5A1B;
+    --swim: #1A4F7A;
+    --travel: #7A4A10;
+    --relax: #1A5C3A;
+    --fly: #7A2A10;
+    --accent: #C8773A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--ink);
+    color: white;
+    padding: 32px 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .hero-dates {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 16px;
+  }
+
+  /* TAB BAR */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .tab.active {
+    background: var(--accent);
+    color: white;
+  }
+
+  /* CONTENT */
+  .content { padding: 20px 16px; }
+
+  /* SECTION HEADER */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 20px 0 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* DAY CARD */
+  .day-card {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .day-card-header {
+    display: flex;
+    align-items: stretch;
+    cursor: pointer;
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 32px;
+  }
+
+  .day-info { flex: 1; min-width: 0; }
+
+  .day-date {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+
+  .day-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .day-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .type-pill {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hotel-tag {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .chevron {
+    color: var(--muted);
+    font-size: 18px;
+    transition: transform 0.2s;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  .day-card.open .chevron { transform: rotate(180deg); }
+
+  .day-details {
+    display: none;
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+  }
+
+  .day-card.open .day-details { display: block; }
+
+  .detail-section {
+    padding-top: 14px;
+  }
+
+  .detail-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .detail-text {
+    font-size: 13px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .booking-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #EFF7EA;
+    color: #2D5A1B;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 4px 4px 0 0;
+  }
+
+  .train-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #FDF3E8;
+    color: #7A4A10;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  /* TYPE COLORS */
+  .pill-night { background: #E8E7F5; color: var(--night); }
+  .pill-city { background: #E8F2E4; color: var(--city); }
+  .pill-travel { background: #F5EDE0; color: var(--travel); }
+  .pill-swim { background: #E0EDF5; color: var(--swim); }
+  .pill-relax { background: #E0F2EB; color: var(--relax); }
+  .pill-fly { background: #F5E0DC; color: var(--fly); }
+
+  /* BOOKINGS TAB */
+  .booking-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .booking-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 28px;
+    line-height: 1;
+  }
+
+  .booking-info { flex: 1; }
+
+  .booking-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .booking-site {
+    font-size: 12px;
+    color: var(--swim);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .booking-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .status-booked {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #EFF7EA;
+    color: var(--city);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .status-pending {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #FDF3E8;
+    color: var(--travel);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  /* HOTELS TAB */
+  .hotel-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .hotel-dest {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .hotel-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+
+  .hotel-dates {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .hotel-nights {
+    display: inline-block;
+    background: var(--cream);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* TIPS TAB */
+  .tip-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    display: flex;
+    gap: 12px;
+  }
+
+  .tip-icon { font-size: 22px; flex-shrink: 0; }
+
+  .tip-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .tip-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* HIDDEN */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 24px 16px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--cream);
+    color: var(--swim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: all 0.15s;
+  }
+  .map-btn:active { background: #E0EDF5; }
+  .map-btn .pin { font-size: 13px; }
+
+  .hotel-map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--cream);
+    color: var(--swim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+  .hotel-map-btn:active { background: #E0EDF5; }
+
+  /* TODAY HIGHLIGHT */
+  .day-card.today {
+    border: 2px solid var(--accent);
+    box-shadow: 0 2px 12px rgba(200,119,58,0.15);
+  }
+  .today-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .today-banner {
+    background: var(--accent);
+    color: white;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .countdown-banner {
+    background: #E8E7F5;
+    color: var(--night);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  /* PHRASE CARD */
+  .lang-section {
+    margin-bottom: 20px;
+  }
+  .lang-flag {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    padding: 10px 0 8px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .phrase-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 9px 4px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .phrase-en {
+    font-size: 13px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .phrase-local {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: right;
+  }
+  .phrase-phon {
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* EMERGENCY CARD */
+  .emergency-hero {
+    background: var(--fly);
+    color: white;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .emergency-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 4px 0;
+  }
+  .emergency-label {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+  }
+  .info-card-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label {
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .info-value {
+    font-size: 13px;
+    color: var(--swim);
+    font-weight: 600;
+    text-align: right;
+  }
+  .info-editable {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .info-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">Family of 4 · By train</div>
+  <div class="hero-title">Central Europe 2026</div>
+  <div class="hero-dates">12 Aug – 29 Aug · Utrecht to Budapest</div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('schedule')">📅 Schedule</button>
+    <button class="tab" onclick="showTab('bookings')">✅ Bookings</button>
+    <button class="tab" onclick="showTab('hotels')">🏨 Hotels</button>
+    <button class="tab" onclick="showTab('phrases')">💬 Phrases</button>
+    <button class="tab" onclick="showTab('emergency')">🆘 Info</button>
+    <button class="tab" onclick="showTab('tips')">💡 Tips</button>
+  </div>
+</div>
+
+<!-- SCHEDULE TAB -->
+<div id="schedule" class="tab-content active">
+<div class="content">
+  <div id="today-banner-slot"></div>
+
+  <div class="section-label">🌙 Night Train</div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-12">
+    <div class="day-card-header">
+      <div class="day-num">1</div>
+      <div class="day-info">
+        <div class="day-date">Wed 12 Aug</div>
+        <div class="day-title">Board the European Sleeper</div>
+        <div class="day-meta">
+          <span class="type-pill pill-night">Night train</span>
+          <span class="hotel-tag">🚉 Utrecht</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Depart Utrecht ~23:14. Get settled into your private Classic compartment. Blankets, pillows and sheets provided. Kids will love falling asleep as the Netherlands rolls by.</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Train</div>
+        <div class="train-chip">🚂 ES453 Utrecht 23:14 → Prague 10:51</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">🏰 Prague · 3 nights</div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-13">
+    <div class="day-card-header">
+      <div class="day-num">2</div>
+      <div class="day-info">
+        <div class="day-date">Thu 13 Aug</div>
+        <div class="day-title">Arrive Prague + Old Town</div>
+        <div class="day-meta">
+          <span class="type-pill pill-city">City</span>
+          <span class="hotel-tag">🏨 Hilton Prague</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Arrive 10:51 Praha hl.n. Check in Hilton Prague. Afternoon: old town wander — Wenceslas Square, astronomical clock, Old Town Square Market (dried mushrooms, honey, ceramics).</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Booked</div>
+        <div><span class="booking-chip">✅ Výtopna Railway Restaurant 19:00</span></div>
+        <div class="detail-text" style="margin-top:6px;font-size:12px;color:var(--muted)">Václavské nám. 56 · Drinks delivered by model train!</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=V%C3%BDtopna%20Railway%20Restaurant%20V%C3%A1clavsk%C3%A9%20n%C3%A1m%C4%9Bst%C3%AD%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-14">
+    <div class="day-card-header">
+      <div class="day-num">3</div>
+      <div class="day-info">
+        <div class="day-date">Fri 14 Aug</div>
+        <div class="day-title">Prague Castle + Café Savoy</div>
+        <div class="day-meta">
+          <span class="type-pill pill-city">City</span>
+          <span class="hotel-tag">🏨 Hilton Prague</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Morning: Prague Castle (Circuit B — St. Vitus Cathedral, Old Royal Palace, Golden Lane). Allow 2–3 hours. Afternoon: Charles Bridge, Malá Strana wander.</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Booked</div>
+        <div><span class="booking-chip">✅ Prague Castle 09:00</span></div>
+        <div><span class="booking-chip">✅ Café Savoy 13:00</span></div>
+        <div class="detail-text" style="margin-top:6px;font-size:12px;color:var(--muted)">Café Savoy: Vítězná 5, Malá Strana · Historic café, excellent Czech lunch</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Prague%20Castle" target="_blank"><span class="pin">📍</span> Prague Castle</a>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Savoy%20V%C3%ADt%C4%9Bzn%C3%A1%205%20Prague" target="_blank"><span class="pin">📍</span> Café Savoy</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-15">
+    <div class="day-card-header">
+      <div class="day-num">4</div>
+      <div class="day-info">
+        <div class="day-date">Sat 15 Aug</div>
+        <div class="day-title">Day trip — Český Krumlov</div>
+        <div class="day-meta">
+          <span class="type-pill pill-travel">Day trip</span>
+          <span class="hotel-tag">🏨 Hilton Prague</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Train or bus from Prague ~2.5 hrs. Fairy-tale castle town on the Vltava. Castle grounds with bears in the moat! River rafting through the old town — kids will love it. Back by evening.</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=%C4%8Cesk%C3%BD%20Krumlov%20Castle" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Train</div>
+        <div class="train-chip">🚂 Praha hl.n. ~09:20 → Český Krumlov ~11:49. Return ~17:00</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">To book</div>
+        <div class="detail-text" style="color:var(--travel)">⚠️ Book train at cd.cz + Vltava river raft closer to date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">🏊 Weiden am See · 3 nights</div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-16">
+    <div class="day-card-header">
+      <div class="day-num">5</div>
+      <div class="day-info">
+        <div class="day-date">Sun 16 Aug</div>
+        <div class="day-title">Prague → Weiden am See</div>
+        <div class="day-meta">
+          <span class="type-pill pill-travel">Travel</span>
+          <span class="hotel-tag">🏨 Markt 15</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Railjet to Vienna (~4.5 hrs), then S-Bahn to Weiden am See (~50 min). Arrive afternoon — first swim in Lake Neusiedl!</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Train</div>
+        <div class="train-chip">🚂 Railjet Praha 08:37 → Wien Hbf 13:06 · S-Bahn ~13:30 → Weiden ~14:20</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-17">
+    <div class="day-card-header">
+      <div class="day-num">6</div>
+      <div class="day-info">
+        <div class="day-date">Mon 17 Aug</div>
+        <div class="day-title">Lake Neusiedl day</div>
+        <div class="day-meta">
+          <span class="type-pill pill-swim">Swimming</span>
+          <span class="hotel-tag">🏨 Markt 15</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Full day at the lake — warm shallow water (avg 1.5m deep, very safe), sandy beach, SUP, kayak, sailing. Cycle the lakeside path. Neusiedler See Card covers public transport.</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Weiden%20am%20See%20Strandbad%20Neusiedlersee" target="_blank"><span class="pin">📍</span> Lake beach</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-18">
+    <div class="day-card-header">
+      <div class="day-num">7</div>
+      <div class="day-info">
+        <div class="day-date">Tue 18 Aug</div>
+        <div class="day-title">Familypark Neusiedlersee</div>
+        <div class="day-meta">
+          <span class="type-pill pill-relax">Active</span>
+          <span class="hotel-tag">🏨 Markt 15</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Austria's largest amusement park at St. Margarethen — rides, log flume, water attractions, plenty for tweens. Full day out. Bus from Neusiedl am See.</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Familypark%20Neusiedlersee%20St.%20Margarethen" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">To book</div>
+        <div class="detail-text" style="color:var(--travel)">⚠️ Buy tickets online at familypark.at (~€38pp)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">🏛️ Budapest · 4 nights</div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-19">
+    <div class="day-card-header">
+      <div class="day-num">8</div>
+      <div class="day-info">
+        <div class="day-date">Wed 19 Aug</div>
+        <div class="day-title">Arrive Budapest + Buda side</div>
+        <div class="day-meta">
+          <span class="type-pill pill-city">City</span>
+          <span class="hotel-tag">🏨 Radisson Collection</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Arrive ~13:00. Check in. Start ~14:30: Chain Bridge (15 min walk) → funicular at far end (2 min up) → all within 5 min on hilltop: Matthias Church, Fishermen's Bastion, panoramic views. Done by 17:00.</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Fisherman%27s%20Bastion%20Budapest" target="_blank"><span class="pin">📍</span> Fishermen's Bastion</a>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Buda%20Castle%20Funicular%20Budapest" target="_blank"><span class="pin">📍</span> Funicular</a>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Train</div>
+        <div class="train-chip">🚂 S-Bahn Weiden ~09:10 → Wien Hbf ~10:00 · Railjet 10:40 → Budapest Keleti 13:02</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Booked</div>
+        <div><span class="booking-chip">✅ VakVarjú Restaurant 19:00</span></div>
+        <div class="detail-text" style="margin-top:6px;font-size:12px;color:var(--muted)">Children's corner, Hungarian dishes, very family friendly</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=VakVarj%C3%BA%20Restaurant%20Budapest" target="_blank"><span class="pin">📍</span> VakVarjú</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-20">
+    <div class="day-card-header">
+      <div class="day-num">9</div>
+      <div class="day-info">
+        <div class="day-date">Thu 20 Aug</div>
+        <div class="day-title">National Day 🎆 + Free Museums</div>
+        <div class="day-meta">
+          <span class="type-pill pill-city">City</span>
+          <span class="hotel-tag">🏨 Radisson Collection</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Morning: Hungarian National Gallery (Buda Castle) — free entry all day. Afternoon: Fishermen's Bastion, castle district, festive atmosphere. Early evening: dinner near Danube by 17:30. Secure spot before bridges close at 18:00.</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Evening</div>
+        <div class="detail-text">🎆 Fireworks over the Danube at 21:00 — one of Europe's great free shows! Best spots: Pest riverbank (Belgrád rakpart) or Gellért Hill.</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Hungarian%20National%20Gallery%20Buda%20Castle" target="_blank"><span class="pin">📍</span> National Gallery</a>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Gell%C3%A9rt%20Hill%20Budapest" target="_blank"><span class="pin">📍</span> Gellért Hill viewpoint</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-21">
+    <div class="day-card-header">
+      <div class="day-num">10</div>
+      <div class="day-info">
+        <div class="day-date">Fri 21 Aug</div>
+        <div class="day-title">Parliament + Cruise</div>
+        <div class="day-meta">
+          <span class="type-pill pill-city">City</span>
+          <span class="hotel-tag">🏨 Radisson Collection</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Morning: Parliament tour. Bring photo ID, arrive 15 min early, airport-style security. Afternoon: Great Market Hall, Pest riverfront.</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Booked</div>
+        <div><span class="booking-chip">✅ Parliament 09:00</span></div>
+        <div><span class="booking-chip">✅ Ape Regina Di Piazza 17:30</span></div>
+        <div><span class="booking-chip">✅ Danube River Cruise 20:40</span></div>
+        <div class="detail-text" style="margin-top:6px;font-size:12px;color:var(--muted)">Cruise: meet at dock 15 min before · Sunset ~20:15, Parliament lit up</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Hungarian%20Parliament%20Building%20Budapest" target="_blank"><span class="pin">📍</span> Parliament</a>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Ape%20Regina%20Di%20Piazza%20V%C3%A9csey%20utca%203%20Budapest" target="_blank"><span class="pin">📍</span> Ape Regina</a>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Great%20Market%20Hall%20Budapest" target="_blank"><span class="pin">📍</span> Market Hall</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-22">
+    <div class="day-card-header">
+      <div class="day-num">11</div>
+      <div class="day-info">
+        <div class="day-date">Sat 22 Aug</div>
+        <div class="day-title">Palatinus Bath + Pinball Museum</div>
+        <div class="day-meta">
+          <span class="type-pill pill-swim">Swimming</span>
+          <span class="hotel-tag">🏨 Radisson Collection</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Morning: Palatinus Bath on Margaret Island — wave pool, water slides, children's pool. Arrive before 10:00. Tram 4/6 to Margaret Bridge. Open 09:00–19:00. Evening: Pinball Museum (130+ playable machines!) or relaxed last Budapest dinner.</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Palatinus%20Strand%20Margaret%20Island%20Budapest" target="_blank"><span class="pin">📍</span> Palatinus Bath</a>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Pinball%20Museum%20Budapest" target="_blank"><span class="pin">📍</span> Pinball Museum</a>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">To book</div>
+        <div class="detail-text" style="color:var(--travel)">⚠️ Book Palatinus ~10 days ahead at palatinusstrand.hu · Cabin ticket for family of 4 · Bring own towels</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">🏖️ Lake Balaton · 4 nights</div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-23">
+    <div class="day-card-header">
+      <div class="day-num">12</div>
+      <div class="day-info">
+        <div class="day-date">Sun 23 Aug</div>
+        <div class="day-title">Budapest → Lake Balaton</div>
+        <div class="day-meta">
+          <span class="type-pill pill-travel">Travel</span>
+          <span class="hotel-tag">🏨 Hotel Margareta</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Train from Budapest Déli to south shore. Check in, straight to the beach. You've earned it!</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Train</div>
+        <div class="train-chip">🚂 MÁV Budapest Déli ~10:35 → Siófok ~11:55 · Hourly, no reservation needed</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-24">
+    <div class="day-card-header">
+      <div class="day-num">13</div>
+      <div class="day-info">
+        <div class="day-date">Mon 24 Aug</div>
+        <div class="day-title">Beach day</div>
+        <div class="day-meta">
+          <span class="type-pill pill-swim">Swimming</span>
+          <span class="hotel-tag">🏨 Hotel Margareta</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Full lake day — warm shallow water (safe for kids, very gently sloping south shore), sandy beach, paddleboards, kayaks. Zero agenda. Lakeside lunch and dinner.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-25">
+    <div class="day-card-header">
+      <div class="day-num">14</div>
+      <div class="day-info">
+        <div class="day-date">Tue 25 Aug</div>
+        <div class="day-title">Cycle the lake path</div>
+        <div class="day-meta">
+          <span class="type-pill pill-relax">Active</span>
+          <span class="hotel-tag">🏨 Hotel Margareta</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Rent bikes and ride a stretch of the lakeside path — flat, scenic, village stops along the way. Back for a swim in the afternoon.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-26">
+    <div class="day-card-header">
+      <div class="day-num">15</div>
+      <div class="day-info">
+        <div class="day-date">Wed 26 Aug</div>
+        <div class="day-title">Tihany Peninsula</div>
+        <div class="day-meta">
+          <span class="type-pill pill-relax">Excursion</span>
+          <span class="hotel-tag">🏨 Hotel Margareta</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Ferry to Tihany peninsula — stunning views, lavender fields, Benedictine abbey, village shops with handcrafted souvenirs (embroidered linens, ceramics). Back for a swim.</div>
+        <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Tihany%20Abbey%20Balaton" target="_blank"><span class="pin">📍</span> Tihany Abbey</a>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Transport</div>
+        <div class="train-chip">⛴️ Ferry Siófok → Tihany ~45 min · Runs regularly in summer</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">🏨 Budapest · Aqua Hotel · 2 nights</div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-27">
+    <div class="day-card-header">
+      <div class="day-num">16</div>
+      <div class="day-info">
+        <div class="day-date">Thu 27 Aug</div>
+        <div class="day-title">Balaton → Aqua Hotel Budapest</div>
+        <div class="day-meta">
+          <span class="type-pill pill-travel">Travel</span>
+          <span class="hotel-tag">🏨 Aqua Hotel</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Morning swim, pack up. Train back to Budapest. Check into Aqua Hotel. Relax, last Hungarian dinner in the city.</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Train</div>
+        <div class="train-chip">🚂 MÁV Siófok ~14:35 → Budapest Déli ~15:55 · Hourly service</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-28">
+    <div class="day-card-header">
+      <div class="day-num">17</div>
+      <div class="day-info">
+        <div class="day-date">Fri 28 Aug</div>
+        <div class="day-title">Enjoy the Aqua Hotel</div>
+        <div class="day-meta">
+          <span class="type-pill pill-relax">Relax</span>
+          <span class="hotel-tag">🏨 Aqua Hotel</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Plan</div>
+        <div class="detail-text">Relax and enjoy the Aqua Hotel — pool, spa, last evening in Budapest. Perfect wind-down before flying home. Last chimney cake and a Danube evening walk.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">✈️ Fly home</div>
+
+  <div class="day-card" onclick="toggleCard(this)" data-date="2026-08-29">
+    <div class="day-card-header">
+      <div class="day-num">18</div>
+      <div class="day-info">
+        <div class="day-date">Sat 29 Aug</div>
+        <div class="day-title">Fly home to Amsterdam</div>
+        <div class="day-meta">
+          <span class="type-pill pill-fly">Flight</span>
+          <span class="hotel-tag">✈️ Budapest Airport</span>
+        </div>
+      </div>
+      <div class="chevron">›</div>
+    </div>
+    <div class="day-details">
+      <div class="detail-section">
+        <div class="detail-label">Flight</div>
+        <div><span class="booking-chip">✅ KLM to Amsterdam 14:15</span></div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Getting to airport</div>
+        <div class="detail-text">Pre-book Bolt taxi for ~10:30. Journey ~35 min. Leave hotel by 10:30 at latest. Check in online the night before.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- BOOKINGS TAB -->
+<div id="bookings" class="tab-content">
+<div class="content">
+
+  <div class="section-label">✅ Already booked</div>
+
+  <div class="booking-card">
+    <div class="booking-num">1</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">Budapest Parliament</div>
+      <div class="booking-site">jegymester.hu</div>
+      <div class="booking-note">Fri 21 Aug · 09:00 · Bring photo ID · Arrive 15 min early · Airport-style security</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">2</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">Danube River Cruise</div>
+      <div class="booking-site">GetYourGuide</div>
+      <div class="booking-note">Fri 21 Aug · 20:40 · Meet at dock 15 min before · Sunset ~20:15</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">3</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">Prague Castle</div>
+      <div class="booking-site">hrad.cz</div>
+      <div class="booking-note">Fri 14 Aug · 09:00 · Circuit B ticket · QR code on email · Arrive 10–15 min early</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">4</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">Výtopna Railway Restaurant</div>
+      <div class="booking-site">vytopna.cz</div>
+      <div class="booking-note">Thu 13 Aug · 19:00 · Václavské nám. 56 · Confirm reservation on arrival</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">5</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">Café Savoy Prague</div>
+      <div class="booking-site">cafesavoy.ambi.cz</div>
+      <div class="booking-note">Fri 14 Aug · 13:00 · Vítězná 5, Malá Strana · Historic café after Prague Castle</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">6</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">VakVarjú Restaurant Budapest</div>
+      <div class="booking-site">vakvarju.hu</div>
+      <div class="booking-note">Wed 19 Aug · 19:00 · Children's corner, Hungarian dishes, family friendly</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">7</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">Ape Regina Di Piazza</div>
+      <div class="booking-site">aperegina.hu</div>
+      <div class="booking-note">Fri 21 Aug · 17:30 · Vécsey utca 3, next to Parliament · Italian, healthy options</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">8</div>
+    <div class="booking-info">
+      <div class="status-booked">✅ Booked</div>
+      <div class="booking-name">KLM Flight to Amsterdam</div>
+      <div class="booking-site">klm.com</div>
+      <div class="booking-note">Sat 29 Aug · Departs 14:15 · Budapest Liszt Ferenc Airport · Pre-book Bolt taxi 10:30</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:8px">⚠️ Still to book</div>
+
+  <div class="booking-card">
+    <div class="booking-num">9</div>
+    <div class="booking-info">
+      <div class="status-pending">⚠️ Urgent</div>
+      <div class="booking-name">European Sleeper Night Train</div>
+      <div class="booking-site">europeansleeper.eu</div>
+      <div class="booking-note">Wed 12 Aug · Utrecht 23:14 → Prague 10:51 · Select "Reservation Only" (Interrail) · Classic Private compartment · ~€229–269 total · Sells out fast!</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">10</div>
+    <div class="booking-info">
+      <div class="status-pending">⚠️ Book soon</div>
+      <div class="booking-name">Palatinus Bath Budapest</div>
+      <div class="booking-site">palatinusstrand.hu or GetYourGuide</div>
+      <div class="booking-note">Sat 22 Aug · Book ~10 days ahead · Cabin ticket for family of 4 · Arrive before 10:00 · Bring own towels · ~€20–25pp</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">11</div>
+    <div class="booking-info">
+      <div class="status-pending">⚠️ Book soon</div>
+      <div class="booking-name">Familypark Neusiedlersee</div>
+      <div class="booking-site">familypark.at</div>
+      <div class="booking-note">Tue 18 Aug · Buy online to skip queues · ~€38pp · Bus from Neusiedl am See</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">12</div>
+    <div class="booking-info">
+      <div class="status-pending">⚠️ Closer to date</div>
+      <div class="booking-name">Train/Bus — Český Krumlov</div>
+      <div class="booking-site">cd.cz or regiojet.com</div>
+      <div class="booking-note">Sat 15 Aug · Train Praha hl.n. ~09:20 → Český Krumlov ~11:49 · Return ~17:00 · Book both ways</div>
+    </div>
+  </div>
+
+  <div class="booking-card">
+    <div class="booking-num">13</div>
+    <div class="booking-info">
+      <div class="status-pending">⚠️ Closer to date</div>
+      <div class="booking-name">Vltava River Raft — Český Krumlov</div>
+      <div class="booking-site">Local operator</div>
+      <div class="booking-note">Sat 15 Aug · 1–2 hr gentle float through old town · ~€15–20 per raft · Book when closer</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- HOTELS TAB -->
+<div id="hotels" class="tab-content">
+<div class="content">
+
+  <div class="hotel-card">
+    <div class="hotel-dest">🏰 Prague</div>
+    <div class="hotel-name">Hilton Prague</div>
+    <div class="hotel-dates">Thu 13 Aug → Sun 16 Aug</div>
+    <span class="hotel-nights">3 nights</span><br>
+    <a class="hotel-map-btn" href="https://www.google.com/maps/search/?api=1&query=Hilton%20Prague" target="_blank">📍 Open in Maps</a>
+  </div>
+
+  <div class="hotel-card">
+    <div class="hotel-dest">🏊 Weiden am See</div>
+    <div class="hotel-name">Markt 15</div>
+    <div class="hotel-dates">Sun 16 Aug → Wed 19 Aug</div>
+    <span class="hotel-nights">3 nights</span><br>
+    <a class="hotel-map-btn" href="https://www.google.com/maps/search/?api=1&query=Markt%2015%20Weiden%20am%20See" target="_blank">📍 Open in Maps</a>
+  </div>
+
+  <div class="hotel-card">
+    <div class="hotel-dest">🏛️ Budapest</div>
+    <div class="hotel-name">Radisson Collection Budapest</div>
+    <div class="hotel-dates">Wed 19 Aug → Sun 23 Aug</div>
+    <span class="hotel-nights">4 nights</span><br>
+    <a class="hotel-map-btn" href="https://www.google.com/maps/search/?api=1&query=Radisson%20Collection%20Hotel%20Budapest" target="_blank">📍 Open in Maps</a>
+  </div>
+
+  <div class="hotel-card">
+    <div class="hotel-dest">🏖️ Lake Balaton</div>
+    <div class="hotel-name">Hotel Margareta</div>
+    <div class="hotel-dates">Sun 23 Aug → Thu 27 Aug</div>
+    <span class="hotel-nights">4 nights</span><br>
+    <a class="hotel-map-btn" href="https://www.google.com/maps/search/?api=1&query=Hotel%20Margareta%20Balatonf%C3%BCred" target="_blank">📍 Open in Maps</a>
+  </div>
+
+  <div class="hotel-card">
+    <div class="hotel-dest">✈️ Budapest — Final stay</div>
+    <div class="hotel-name">Aqua Hotel Budapest</div>
+    <div class="hotel-dates">Thu 27 Aug → Sat 29 Aug</div>
+    <span class="hotel-nights">2 nights</span><br>
+    <a class="hotel-map-btn" href="https://www.google.com/maps/search/?api=1&query=Aquincum%20Hotel%20Budapest" target="_blank">📍 Open in Maps</a>
+  </div>
+
+</div>
+</div>
+
+<!-- PHRASES TAB -->
+<div id="phrases" class="tab-content">
+<div class="content">
+
+  <div class="lang-section">
+    <div class="lang-flag">🇨🇿 Czech — Prague</div>
+    <div class="phrase-row"><span class="phrase-en">Hello</span><span class="phrase-local">Dobrý den <span class="phrase-phon">(DOH-bree den)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Please</span><span class="phrase-local">Prosím <span class="phrase-phon">(PRO-seem)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Thank you</span><span class="phrase-local">Děkuji <span class="phrase-phon">(DYE-ku-yi)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Yes / No</span><span class="phrase-local">Ano / Ne <span class="phrase-phon">(AH-no / neh)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Excuse me</span><span class="phrase-local">Promiňte <span class="phrase-phon">(PRO-min-teh)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">The bill, please</span><span class="phrase-local">Účet, prosím <span class="phrase-phon">(OO-chet)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Where is...?</span><span class="phrase-local">Kde je...? <span class="phrase-phon">(g-deh yeh)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Cheers!</span><span class="phrase-local">Na zdraví! <span class="phrase-phon">(na ZDRA-vee)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Do you speak English?</span><span class="phrase-local">Mluvíte anglicky? <span class="phrase-phon">(MLOO-vee-teh)</span></span></div>
+  </div>
+
+  <div class="lang-section">
+    <div class="lang-flag">🇦🇹 German — Austria (Weiden)</div>
+    <div class="phrase-row"><span class="phrase-en">Hello</span><span class="phrase-local">Hallo / Grüß Gott <span class="phrase-phon">(groos got)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Please</span><span class="phrase-local">Bitte <span class="phrase-phon">(BIT-teh)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Thank you</span><span class="phrase-local">Danke <span class="phrase-phon">(DAN-keh)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Yes / No</span><span class="phrase-local">Ja / Nein <span class="phrase-phon">(ya / nine)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Excuse me</span><span class="phrase-local">Entschuldigung <span class="phrase-phon">(ent-SHOOL-di-gung)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">The bill, please</span><span class="phrase-local">Die Rechnung, bitte <span class="phrase-phon">(REKH-nung)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Where is...?</span><span class="phrase-local">Wo ist...? <span class="phrase-phon">(vo ist)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Cheers!</span><span class="phrase-local">Prost! <span class="phrase-phon">(prohst)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Do you speak English?</span><span class="phrase-local">Sprechen Sie Englisch? <span class="phrase-phon">(SHPREH-khen zee)</span></span></div>
+  </div>
+
+  <div class="lang-section">
+    <div class="lang-flag">🇭🇺 Hungarian — Budapest & Balaton</div>
+    <div class="phrase-row"><span class="phrase-en">Hello</span><span class="phrase-local">Szia / Jó napot <span class="phrase-phon">(SEE-ya / yoh NA-pot)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Please</span><span class="phrase-local">Kérem <span class="phrase-phon">(KAY-rem)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Thank you</span><span class="phrase-local">Köszönöm <span class="phrase-phon">(KUH-suh-nuhm)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Yes / No</span><span class="phrase-local">Igen / Nem <span class="phrase-phon">(EE-gen / nem)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Excuse me</span><span class="phrase-local">Elnézést <span class="phrase-phon">(EL-nay-zaysht)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">The bill, please</span><span class="phrase-local">A számlát, kérem <span class="phrase-phon">(SAAM-laat)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Where is...?</span><span class="phrase-local">Hol van...? <span class="phrase-phon">(hol von)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Cheers!</span><span class="phrase-local">Egészségedre! <span class="phrase-phon">(EG-ay-shay-ged-reh)</span></span></div>
+    <div class="phrase-row"><span class="phrase-en">Do you speak English?</span><span class="phrase-local">Beszél angolul? <span class="phrase-phon">(BES-ayl ON-go-lul)</span></span></div>
+  </div>
+
+  <div class="info-note" style="text-align:center;padding:8px 0">💡 Kids love learning "thank you" and "cheers" in each language — a fun trip game!</div>
+
+</div>
+</div>
+
+<!-- EMERGENCY / INFO TAB -->
+<div id="emergency" class="tab-content">
+<div class="content">
+
+  <div class="emergency-hero">
+    <div class="emergency-label">Emergency — all countries</div>
+    <div class="emergency-number">112</div>
+    <div class="emergency-label">Police · Ambulance · Fire</div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">🏥 Country-specific numbers</div>
+    <div class="info-row"><span class="info-label">🇨🇿 Czech ambulance</span><span class="info-value">155</span></div>
+    <div class="info-row"><span class="info-label">🇦🇹 Austria ambulance</span><span class="info-value">144</span></div>
+    <div class="info-row"><span class="info-label">🇭🇺 Hungary ambulance</span><span class="info-value">104</span></div>
+    <div class="info-note">112 works everywhere and connects to English-speaking operators. Use it if unsure.</div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">🏨 Hotel contacts</div>
+    <div class="info-row"><span class="info-label">Hilton Prague</span><span class="info-editable">add phone ✎</span></div>
+    <div class="info-row"><span class="info-label">Markt 15, Weiden</span><span class="info-editable">add phone ✎</span></div>
+    <div class="info-row"><span class="info-label">Radisson Collection</span><span class="info-editable">add phone ✎</span></div>
+    <div class="info-row"><span class="info-label">Hotel Margareta</span><span class="info-editable">add phone ✎</span></div>
+    <div class="info-row"><span class="info-label">Aqua Hotel Budapest</span><span class="info-editable">add phone ✎</span></div>
+    <div class="info-note">Tap to edit — your notes save on this device only. Add each hotel's phone once you have your confirmations.</div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">🎫 Confirmation numbers</div>
+    <div class="info-row"><span class="info-label">European Sleeper</span><span class="info-editable">add ref ✎</span></div>
+    <div class="info-row"><span class="info-label">Parliament</span><span class="info-editable">add ref ✎</span></div>
+    <div class="info-row"><span class="info-label">Danube Cruise</span><span class="info-editable">add ref ✎</span></div>
+    <div class="info-row"><span class="info-label">Prague Castle</span><span class="info-editable">add ref ✎</span></div>
+    <div class="info-row"><span class="info-label">KLM flight</span><span class="info-editable">add ref ✎</span></div>
+    <div class="info-note">Keep all your booking references in one offline place. Tap any field to add yours.</div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">🛂 Embassy — Netherlands</div>
+    <div class="info-row"><span class="info-label">🇨🇿 Prague</span><span class="info-value">+420 233 015 200</span></div>
+    <div class="info-row"><span class="info-label">🇦🇹 Vienna</span><span class="info-value">+43 1 589 39</span></div>
+    <div class="info-row"><span class="info-label">🇭🇺 Budapest</span><span class="info-value">+36 1 336 6300</span></div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">📋 Good to know</div>
+    <div class="info-note" style="margin-top:0">
+      • EU EHIC / GHIC card covers healthcare in all three countries — pack it<br>
+      • Currencies: Czech koruna (CZK), Euro (Austria), Hungarian forint (HUF)<br>
+      • Pharmacies: "Lékárna" (CZ), "Apotheke" (AT), "Gyógyszertár" (HU)<br>
+      • Tap water is safe to drink in all three countries
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- TIPS TAB -->
+<div id="tips" class="tab-content">
+<div class="content">
+
+  <div class="section-label">🚂 Train & Transport</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🌙</div>
+    <div>
+      <div class="tip-title">Night train — Interrail</div>
+      <div class="tip-text">Open Rail Planner app before boarding. Add journey to My Trip and activate the travel day. Show both Interrail QR code AND European Sleeper reservation to conductor. Need 5 travel days total.</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🚕</div>
+    <div>
+      <div class="tip-title">Budapest airport taxi</div>
+      <div class="tip-text">Use Bolt app — pre-book for 10:30 on Sat 29 Aug. ~€25–28, ~35 min. Much easier than bus with luggage for a family of 4.</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🚉</div>
+    <div>
+      <div class="tip-title">Vienna transfer</div>
+      <div class="tip-text">Allow 45 min at Wien Hauptbahnhof between S-Bahn and Railjet. Modern station, lifts everywhere, clear signage in English.</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🚂</div>
+    <div>
+      <div class="tip-title">Balaton trains</div>
+      <div class="tip-text">MÁV from Budapest Déli, hourly, no reservation needed. South shore ~1h 20min. Get off at Siófok.</div>
+    </div>
+  </div>
+
+  <div class="section-label">🏊 Lakes</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🌊</div>
+    <div>
+      <div class="tip-title">Lake safety</div>
+      <div class="tip-text">Both lakes are extremely safe — nothing like Como. Lake Neusiedl averages just 1.5m deep. Balaton south shore is very shallow and gently sloping. Perfect for kids.</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">👟</div>
+    <div>
+      <div class="tip-title">Water shoes</div>
+      <div class="tip-text">Worth having for Lake Neusiedl — silty bottom and reed beds in some spots. Not needed for Balaton south shore sandy beaches. Buy cheap at Decathlon in Prague or Budapest.</div>
+    </div>
+  </div>
+
+  <div class="section-label">🧳 Packing</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🎒</div>
+    <div>
+      <div class="tip-title">Luggage setup</div>
+      <div class="tip-text">2 adult backpacks + 1 medium backpack (son) + 2 small trolleys. Everyone carries their own. Check if Markt 15 and Hotel Margareta have washing machines — pack for 8–9 days and wash mid-trip.</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🩱</div>
+    <div>
+      <div class="tip-title">August packing</div>
+      <div class="tip-text">Hot! 28–35°C. Pack light summer clothing. Keep swimwear accessible — you'll use it constantly. One light evening layer for cooler nights. Quick-dry towels save space.</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🚂</div>
+    <div>
+      <div class="tip-title">Night train packing</div>
+      <div class="tip-text">Keep one small bag in the compartment with pyjamas, toothbrush, phone charger, eye mask, earplugs. Big bags go under the bunks and stay there until Prague.</div>
+    </div>
+  </div>
+
+  <div class="section-label">🍽️ Food</div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🥐</div>
+    <div>
+      <div class="tip-title">Must try</div>
+      <div class="tip-text">Prague: trdelník, svíčková. Budapest: lángos, goulash, kürtőskalács (chimney cake). Balaton: lake fish soup, grilled meats at lakeside terraces. All very kid-friendly!</div>
+    </div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">🎆</div>
+    <div>
+      <div class="tip-title">National Day — 20 Aug</div>
+      <div class="tip-text">Be near the Danube by 17:30 — bridges close at 18:00. Best spots: Pest riverbank or Gellért Hill. Fireworks at 21:00. Completely free. One of Europe's great shows!</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="footer">Family Holiday 2026 · Utrecht → Prague → Weiden → Budapest → Balaton → Budapest ✈️</div>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+// ===== TODAY HIGHLIGHT =====
+(function() {
+  var today = new Date();
+  var todayStr = today.getFullYear() + '-' +
+    String(today.getMonth()+1).padStart(2,'0') + '-' +
+    String(today.getDate()).padStart(2,'0');
+
+  var cards = document.querySelectorAll('.day-card[data-date]');
+  var tripStart = new Date('2026-08-12');
+  var tripEnd = new Date('2026-08-29');
+  var bannerSlot = document.getElementById('today-banner-slot');
+  var matched = false;
+
+  cards.forEach(function(card) {
+    if (card.getAttribute('data-date') === todayStr) {
+      card.classList.add('today', 'open');
+      var title = card.querySelector('.day-title');
+      if (title && !title.querySelector('.today-badge')) {
+        title.insertAdjacentHTML('beforeend', '<span class="today-badge">Today</span>');
+      }
+      matched = true;
+      // scroll to it after a moment
+      setTimeout(function(){ card.scrollIntoView({behavior:'smooth', block:'center'}); }, 400);
+    }
+  });
+
+  if (bannerSlot) {
+    if (matched) {
+      bannerSlot.innerHTML = '<div class="today-banner">📍 Here\'s your plan for today — tap any other day to explore</div>';
+    } else if (today < tripStart) {
+      var days = Math.ceil((tripStart - today) / (1000*60*60*24));
+      bannerSlot.innerHTML = '<div class="countdown-banner">✈️ ' + days + ' day' + (days===1?'':'s') + ' until Prague!</div>';
+    } else if (today > tripEnd) {
+      bannerSlot.innerHTML = '<div class="countdown-banner">🏡 Welcome home! Hope you had an amazing trip.</div>';
+    }
+  }
+})();
+
+// ===== EDITABLE INFO FIELDS (saved on device) =====
+(function() {
+  var editables = document.querySelectorAll('.info-editable');
+  editables.forEach(function(el, i) {
+    var key = 'holiday-info-' + i;
+    var saved = null;
+    try { saved = localStorage.getItem(key); } catch(e) {}
+    if (saved) {
+      el.textContent = saved;
+      el.style.fontStyle = 'normal';
+      el.style.color = 'var(--swim)';
+    }
+    el.addEventListener('click', function(ev) {
+      ev.stopPropagation();
+      var current = (el.style.fontStyle === 'normal') ? el.textContent : '';
+      var val = prompt('Enter details:', current);
+      if (val !== null && val.trim() !== '') {
+        el.textContent = val.trim();
+        el.style.fontStyle = 'normal';
+        el.style.color = 'var(--swim)';
+        try { localStorage.setItem(key, val.trim()); } catch(e) {}
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
