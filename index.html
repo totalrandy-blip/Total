@@ -636,6 +636,54 @@
     margin-top: 8px;
     line-height: 1.4;
   }
+
+  /* LANDSCAPE MODE — phone rotated sideways */
+  @media (orientation: landscape) and (max-height: 550px) {
+    body {
+      max-width: 760px;
+    }
+    .hero {
+      padding: 14px 24px 10px;
+    }
+    .hero-eyebrow {
+      margin-bottom: 3px;
+    }
+    .hero-title {
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+    .hero-dates {
+      margin-bottom: 10px;
+    }
+    .tab {
+      padding: 5px 12px;
+      font-size: 11px;
+    }
+    .content {
+      padding: 14px 24px;
+    }
+    /* Two-column layout for browsable cards so less vertical scrolling is needed */
+    .booking-card,
+    .hotel-card,
+    .tip-card {
+      display: inline-block;
+      width: calc(50% - 14px);
+      vertical-align: top;
+      margin-right: 10px;
+    }
+    .day-card {
+      width: 100%;
+    }
+  }
+
+  @media (orientation: landscape) and (max-height: 400px) {
+    .hero-title {
+      font-size: 18px;
+    }
+    .hero-dates {
+      display: none;
+    }
+  }
 </style>
 </head>
 <body>
