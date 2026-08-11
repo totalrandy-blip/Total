@@ -167,6 +167,36 @@
   }
   .expand-item.open .expand-item-body { display: block; }
 
+  /* WALKING TOUR STOPS */
+  .tour-stop {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .tour-stop:last-of-type { border-bottom: none; }
+  .tour-stop-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 20px;
+    line-height: 1.4;
+  }
+  .tour-stop-info { flex: 1; }
+  .tour-stop-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .tour-stop-blurb {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
   /* DAY CARD */
   .day-card {
     background: white;
@@ -781,6 +811,97 @@
         <div class="detail-text" style="margin-top:8px"><strong>The Strategy:</strong> Go mid-morning or late evening to dodge the heavy afternoon lines around the Charles Bridge path.</div>
         <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Old%20Czech%20Chimney%20Cake%20Karlova%20Prague" target="_blank"><span class="pin">📍</span> Old Czech Chimney Cake</a>
         <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Good%20Food%20Coffee%20%26%20Bakery%20Prague" target="_blank"><span class="pin">📍</span> Good Food Coffee & Bakery</a>
+      </div>
+    </div>
+
+    <div class="expand-item" onclick="toggleExpand(this)">
+      <div class="expand-item-header">
+        <div class="expand-item-title">🚶 Old Town Walking Tour <span class="expand-item-count">(9 stops)</span></div>
+        <div class="chevron">›</div>
+      </div>
+      <div class="expand-item-body" onclick="event.stopPropagation()">
+        <div class="detail-text" style="margin-top:0">Self-guided route · ~1km · 60–90 min walking (longer with stops). Starts at Powder Tower, ends at Charles Bridge / Malá Strana — pairs well with your Prague Castle day.</div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">1</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Powder Tower (Prašná brána)</div>
+            <div class="tour-stop-blurb">Gothic gate marking the old entrance to Old Town — starting point</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Powder%20Tower%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">2</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Municipal House</div>
+            <div class="tour-stop-blurb">Art Nouveau landmark right next to the tower</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Municipal%20House%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">3</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Celetná Street</div>
+            <div class="tour-stop-blurb">Historic coronation route, lined with shops and cafés</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Celetn%C3%A1%20Street%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">4</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">House of the Black Madonna</div>
+            <div class="tour-stop-blurb">Czech Cubist building with a café inside</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=House%20of%20the%20Black%20Madonna%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">5</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Old Town Square</div>
+            <div class="tour-stop-blurb">Týn Church, Jan Hus Memorial, market stalls</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Old%20Town%20Square%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">6</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Astronomical Clock show</div>
+            <div class="tour-stop-blurb">On the hour — the walking figures of the apostles</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Prague%20Astronomical%20Clock" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">7</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Klementinum</div>
+            <div class="tour-stop-blurb">Baroque library complex, tours of the historic hall</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Klementinum%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">8</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Charles Bridge (Karlův most)</div>
+            <div class="tour-stop-blurb">Iconic 1357 bridge lined with statues</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Charles%20Bridge%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
+
+        <div class="tour-stop">
+          <div class="tour-stop-num">9</div>
+          <div class="tour-stop-info">
+            <div class="tour-stop-name">Lesser Town Bridge Towers</div>
+            <div class="tour-stop-blurb">Two towers marking the entrance to Malá Strana — finish here</div>
+            <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Lesser%20Town%20Bridge%20Towers%20Prague" target="_blank"><span class="pin">📍</span> Open in Maps</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
