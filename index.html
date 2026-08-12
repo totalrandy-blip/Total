@@ -220,6 +220,58 @@
     font-size: 12px;
   }
 
+  /* REFRESH BUTTON */
+  .refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--cream);
+    color: var(--swim);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 8px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .refresh-btn:active { background: #E0EDF5; }
+  .refresh-btn .spin {
+    display: inline-block;
+    transition: transform 0.4s ease;
+  }
+  .refresh-btn.spinning .spin {
+    animation: spin-once 0.6s linear;
+  }
+  @keyframes spin-once {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* GLOBAL PAGE REFRESH BUTTON */
+  .global-refresh-btn {
+    position: absolute;
+    top: 32px;
+    right: 20px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .global-refresh-btn:active { background: rgba(255,255,255,0.24); }
+  .global-refresh-btn.spinning .spin {
+    display: inline-block;
+    animation: spin-once 0.6s linear;
+  }
+
   /* DAY CARD */
   .day-card {
     background: white;
@@ -742,6 +794,7 @@
 <body>
 
 <div class="hero">
+  <button class="global-refresh-btn" onclick="refreshPage(this)" aria-label="Refresh page"><span class="spin">🔄</span></button>
   <div class="hero-eyebrow">Family of 4 · By train</div>
   <div class="hero-title">Central Europe 2026</div>
   <div class="hero-dates">12 Aug – 29 Aug · Utrecht to Budapest</div>
@@ -788,13 +841,13 @@
       </div>
       <div class="detail-section">
         <div class="detail-label">🕒 Live Departure — Amersfoort Centraal</div>
-        <div class="detail-text">Scheduled: <strong>23:14</strong> (arrives 23:10). For live delay/platform info, check the board directly:</div>
+        <div class="detail-text">Scheduled: <strong>23:14</strong> (arrives 23:10). <span style="color:var(--travel);font-weight:600">Live tracker showed 00:41 as of ~23:05 checked on 12 Aug — running ~1h27 late.</span> Est. Prague arrival pushed to roughly ~12:20. Recheck closer to boarding, delays can change.</div>
         <a class="map-btn" href="https://www.rijdendetreinen.nl/en/departures/station/amersfoort-centraal" target="_blank"><span class="pin">🕒</span> Live departures — Amersfoort Centraal</a>
         <a class="map-btn" href="https://www.ns.nl/reisinformatie/vertrektijden?station=Amersfoort%20Centraal" target="_blank"><span class="pin">🕒</span> NS live departures</a>
       </div>
       <div class="detail-section">
         <div class="detail-label">🛰️ Live Train Tracker</div>
-        <iframe class="map-embed" style="height:300px" loading="lazy" src="https://whereisthe.es/train/453" title="Live tracker for European Sleeper ES453"></iframe>
+        <iframe id="es453-tracker" class="map-embed" style="height:300px" loading="lazy" src="https://whereisthe.es/train/453" title="Live tracker for European Sleeper ES453"></iframe>
         <div class="detail-text" style="margin-top:6px;font-size:11px;color:var(--muted)">Community-built live tracker for the European Sleeper — shows real-time position once the train is running.</div>
       </div>
     </div>
@@ -1984,6 +2037,11 @@ function toggleCard(card) {
 
 function toggleExpand(item) {
   item.classList.toggle('open');
+}
+
+function refreshPage(btn) {
+  if (btn) btn.classList.add('spinning');
+  location.reload();
 }
 
 // ===== TODAY HIGHLIGHT =====
