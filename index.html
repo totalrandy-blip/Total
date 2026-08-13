@@ -32,6 +32,7 @@
     max-width: 480px;
     margin: 0 auto;
     padding: 0 0 80px;
+    overscroll-behavior-y: contain;
   }
 
   /* HERO */
@@ -2060,6 +2061,7 @@ function toggleExpand(item) {
 
   var startY = 0;
   var pulling = false;
+  var dragging = false;
   var refreshing = false;
   var threshold = 70; // px of pull needed to trigger refresh
 
@@ -2067,27 +2069,33 @@ function toggleExpand(item) {
     if (window.scrollY === 0 && !refreshing) {
       startY = e.touches[0].clientY;
       pulling = true;
+      dragging = false;
       indicator.classList.add('pulling');
     }
   }, { passive: true });
 
+  // passive:false so we can preventDefault and drive the gesture ourselves —
+  // needed because standalone/home-screen web apps on iOS suppress the native
+  // elastic bounce that a passive listener would otherwise depend on.
   document.addEventListener('touchmove', function(e) {
     if (!pulling || refreshing) return;
     var currentY = e.touches[0].clientY;
     var diff = currentY - startY;
     if (diff > 0 && window.scrollY === 0) {
+      dragging = true;
+      if (e.cancelable) e.preventDefault();
       var pull = Math.min(diff * 0.5, 100);
       indicator.style.opacity = Math.min(pull / threshold, 1);
       indicator.style.transform = 'translate(-50%, ' + (pull - 60) + 'px)';
       indicator.classList.toggle('ready', pull >= threshold);
     }
-  }, { passive: true });
+  }, { passive: false });
 
   document.addEventListener('touchend', function() {
     if (!pulling || refreshing) return;
     pulling = false;
     indicator.classList.remove('pulling');
-    if (indicator.classList.contains('ready')) {
+    if (dragging && indicator.classList.contains('ready')) {
       refreshing = true;
       indicator.classList.remove('ready');
       indicator.classList.add('refreshing');
@@ -2098,6 +2106,7 @@ function toggleExpand(item) {
       indicator.style.opacity = 0;
       indicator.style.transform = 'translate(-50%, -60px)';
     }
+    dragging = false;
   });
 })();
 
