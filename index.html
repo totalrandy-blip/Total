@@ -250,39 +250,39 @@
     to { transform: rotate(360deg); }
   }
 
-  /* REFRESH BUTTON */
-  .refresh-fab {
-    position: absolute;
-    top: 30px;
-    right: 20px;
+  /* PULL-TO-REFRESH INDICATOR */
+  .ptr-indicator {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -60px);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
     display: flex;
     align-items: center;
-    gap: 6px;
-    background: linear-gradient(135deg, var(--accent), #b56a30);
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 7px 13px 7px 11px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    font-family: inherit;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    justify-content: center;
+    font-size: 16px;
+    z-index: 200;
+    transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    opacity: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   }
-  .refresh-fab:active {
-    transform: scale(0.94);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  .ptr-indicator.pulling {
+    transition: none;
   }
-  .refresh-fab .refresh-icon {
-    font-size: 13px;
+  .ptr-indicator .ptr-icon {
     display: inline-block;
   }
-  .refresh-fab.spinning .refresh-icon {
-    animation: refresh-spin 0.6s ease;
+  .ptr-indicator.ready .ptr-icon {
+    transform: rotate(180deg);
   }
-  @keyframes refresh-spin {
+  .ptr-indicator.refreshing .ptr-icon {
+    animation: ptr-spin 0.7s linear infinite;
+  }
+  @keyframes ptr-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
@@ -808,8 +808,9 @@
 </head>
 <body>
 
+<div class="ptr-indicator" id="ptr-indicator"><span class="ptr-icon">↓</span></div>
+
 <div class="hero">
-  <button class="refresh-fab" onclick="refreshPage(this)" aria-label="Refresh page"><span class="refresh-icon">⟳</span> Refresh</button>
   <div class="hero-eyebrow">Family of 4 · By train</div>
   <div class="hero-title">Central Europe 2026</div>
   <div class="hero-dates">12 Aug – 29 Aug · Utrecht to Budapest</div>
@@ -2053,10 +2054,61 @@ function toggleExpand(item) {
   item.classList.toggle('open');
 }
 
-function refreshPage(btn) {
-  if (btn) btn.classList.add('spinning');
-  setTimeout(function() { location.reload(); }, 250);
-}
+// ===== PULL-TO-REFRESH (mobile browser style) =====
+(function() {
+  var indicator = document.getElementById('ptr-indicator');
+  if (!indicator) return;
+
+  var startY = 0;
+  var pulling = false;
+  var dragging = false;
+  var refreshing = false;
+  var threshold = 70; // px of pull needed to trigger refresh
+
+  document.addEventListener('touchstart', function(e) {
+    if (window.scrollY === 0 && !refreshing) {
+      startY = e.touches[0].clientY;
+      pulling = true;
+      dragging = false;
+      indicator.classList.add('pulling');
+    }
+  }, { passive: true });
+
+  // passive:false so we can preventDefault and drive the gesture ourselves —
+  // needed because standalone/home-screen web apps on iOS suppress the native
+  // elastic bounce that a passive listener would otherwise depend on.
+  document.addEventListener('touchmove', function(e) {
+    if (!pulling || refreshing) return;
+    var currentY = e.touches[0].clientY;
+    var diff = currentY - startY;
+    if (diff > 0 && window.scrollY === 0) {
+      dragging = true;
+      if (e.cancelable) e.preventDefault();
+      var pull = Math.min(diff * 0.5, 100);
+      indicator.style.opacity = Math.min(pull / threshold, 1);
+      indicator.style.transform = 'translate(-50%, ' + (pull - 60) + 'px)';
+      indicator.classList.toggle('ready', pull >= threshold);
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchend', function() {
+    if (!pulling || refreshing) return;
+    pulling = false;
+    indicator.classList.remove('pulling');
+    if (dragging && indicator.classList.contains('ready')) {
+      refreshing = true;
+      indicator.classList.remove('ready');
+      indicator.classList.add('refreshing');
+      indicator.style.opacity = 1;
+      indicator.style.transform = 'translate(-50%, 16px)';
+      setTimeout(function() { location.reload(); }, 400);
+    } else {
+      indicator.style.opacity = 0;
+      indicator.style.transform = 'translate(-50%, -60px)';
+    }
+    dragging = false;
+  });
+})();
 
 // ===== TODAY HIGHLIGHT =====
 (function() {
