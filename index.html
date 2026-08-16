@@ -804,9 +804,89 @@
       display: none;
     }
   }
+
+  /* PASSWORD GATE */
+  .pw-gate {
+    position: fixed;
+    inset: 0;
+    background: var(--ink);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .pw-gate-box {
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+  }
+  .pw-gate-icon {
+    font-size: 34px;
+    margin-bottom: 14px;
+  }
+  .pw-gate-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .pw-gate-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 22px;
+  }
+  .pw-gate-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-size: 15px;
+    font-family: inherit;
+    margin-bottom: 12px;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+  .pw-gate-input::placeholder { color: rgba(255,255,255,0.35); }
+  .pw-gate-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .pw-gate-btn:active { opacity: 0.85; }
+  .pw-gate-error {
+    color: #e08a6a;
+    font-size: 12px;
+    margin-top: 10px;
+    min-height: 16px;
+  }
+  body.pw-locked {
+    overflow: hidden;
+    height: 100vh;
+  }
 </style>
 </head>
-<body>
+<body class="pw-locked">
+
+<div class="pw-gate" id="pw-gate">
+  <div class="pw-gate-box">
+    <div class="pw-gate-icon">🔒</div>
+    <div class="pw-gate-title">Family Holiday 2026</div>
+    <div class="pw-gate-sub">Enter the password to view the itinerary</div>
+    <input type="password" class="pw-gate-input" id="pw-input" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter') checkPassword()">
+    <button class="pw-gate-btn" onclick="checkPassword()">Unlock</button>
+    <div class="pw-gate-error" id="pw-error"></div>
+  </div>
+</div>
 
 <div class="ptr-indicator" id="ptr-indicator"><span class="ptr-icon">↓</span></div>
 
@@ -1160,8 +1240,6 @@
         <div class="detail-text" style="margin-top:10px"><strong>Prague Castle ticket (GetYourGuide, Main Circuit):</strong> Open 9:00 AM–5:00 PM, last entry 3:40 PM. Covers St. Vitus Cathedral, Old Royal Palace, St. George's Basilica & Golden Lane — each building enterable once. Online ticket, no paper needed — show it on your phone at each entrance.</div>
         <div class="detail-text" style="margin-top:6px;font-size:12px;color:var(--muted)">Booking ref: <strong>GYGFWV47LH8Q</strong> · PIN: <strong>kjxh=F7&amp;</strong> · 2 adults + 1 youth</div>
         <div class="detail-text" style="margin-top:6px;font-size:11px;color:var(--travel)">⚠️ Not allowed: drones, pets (assistance dogs OK), flash photography. Lobkowicz Palace is separate and not included.</div>
-        <iframe class="map-embed" style="height:340px;border:1px solid var(--border)" loading="lazy" src="X9XTIOG7VFMGT7VJBHBZBMA18G9LTQEH.pdf" title="Prague Castle ticket PDF"></iframe>
-        <a class="map-btn" href="X9XTIOG7VFMGT7VJBHBZBMA18G9LTQEH.pdf" target="_blank"><span class="pin">📄</span> Open ticket PDF</a>
         <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Prague%20Castle" target="_blank"><span class="pin">📍</span> Prague Castle</a>
         <a class="map-btn" href="https://www.google.com/maps/search/?api=1&query=Caf%C3%A9%20Savoy%20V%C3%ADt%C4%9Bzn%C3%A1%205%20Prague" target="_blank"><span class="pin">📍</span> Café Savoy</a>
       </div>
@@ -2333,6 +2411,35 @@ function toggleExpand(item) {
         });
       });
   });
+})();
+
+// ===== PASSWORD GATE =====
+// To change the password, edit the string below.
+var TRIP_PASSWORD = "Budapest2026";
+
+function checkPassword() {
+  var input = document.getElementById('pw-input');
+  var error = document.getElementById('pw-error');
+  if (input.value === TRIP_PASSWORD) {
+    document.getElementById('pw-gate').style.display = 'none';
+    document.body.classList.remove('pw-locked');
+    try { localStorage.setItem('trip-unlocked', 'yes'); } catch(e) {}
+  } else {
+    error.textContent = 'Incorrect password — try again.';
+    input.value = '';
+    input.focus();
+  }
+}
+
+(function() {
+  var alreadyUnlocked = false;
+  try { alreadyUnlocked = localStorage.getItem('trip-unlocked') === 'yes'; } catch(e) {}
+  if (alreadyUnlocked) {
+    document.getElementById('pw-gate').style.display = 'none';
+    document.body.classList.remove('pw-locked');
+  } else {
+    document.getElementById('pw-input').focus();
+  }
 })();
 </script>
 
